@@ -29,6 +29,17 @@ pipeline {
 
         always {
 
+                junit 'target/surefire-reports/*.xml'
+
+                publishHTML([
+                            allowMissing: true,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: 'reports',
+                            reportFiles: 'ExtentReport.html',
+                            reportName: 'Extent Report'
+                        ])
+
                 archiveArtifacts artifacts: 'reports/**/*.*', fingerprint: true
 
                 archiveArtifacts artifacts: 'screenshots/**/*.*', fingerprint: true
@@ -37,11 +48,19 @@ pipeline {
             }
 
         success {
-            echo 'Build Successful'
+            emailText(
+                    subject: "SUCCESS : ${env.JOB_NAME}",
+                    body: "Build Passed",
+                    to: "azithlaltsthorali@gmail.com"
+                )
         }
 
         failure {
-            echo 'Build Failed'
+            emailText(
+                    subject: "FAILED : ${env.JOB_NAME}",
+                    body: "Build Passed",
+                    to: "azithlaltsthorali@gmail.com"
+                            )
         }
     }
 }
