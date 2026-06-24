@@ -48,19 +48,33 @@ pipeline {
             }
 
         success {
-            emailText(
-                    subject: "SUCCESS : ${env.JOB_NAME}",
-                    body: "Build Passed",
-                    to: "azithlaltsthorali@gmail.com"
-                )
+            emailext(
+                subject: "SUCCESS : ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                Build Passed
+
+                Job: ${env.JOB_NAME}
+                Build: ${env.BUILD_NUMBER}
+
+                URL: ${env.BUILD_URL}
+                """,
+                to: "azithlaltsthorali@gmail.com"
+            )
         }
 
         failure {
-            emailText(
-                    subject: "FAILED : ${env.JOB_NAME}",
-                    body: "Build Passed",
-                    to: "azithlaltsthorali@gmail.com"
-                            )
+            emailext(
+                subject: "FAILED : ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                Build Failed
+
+                Job: ${env.JOB_NAME}
+                Build: ${env.BUILD_NUMBER}
+
+                URL: ${env.BUILD_URL}
+                """,
+                to: "azithlaltsthorali@gmail.com"
+            )
         }
     }
 }
