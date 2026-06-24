@@ -26,6 +26,16 @@ pipeline {
     }
 
     post {
+
+        always {
+
+                archiveArtifacts artifacts: 'reports/**/*.*', fingerprint: true
+
+                archiveArtifacts artifacts: 'screenshots/**/*.*', fingerprint: true
+
+                archiveArtifacts artifacts: 'logs/**/*.*', fingerprint: true
+            }
+
         success {
             echo 'Build Successful'
         }
