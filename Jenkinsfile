@@ -13,7 +13,14 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                bat '"C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd" clean test'
+                withEnv([
+                    'JAVA_HOME=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot',
+                    'PATH+JAVA=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot\\bin'
+                ]) {
+
+                    bat 'java -version'
+                    bat '"C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd" clean test'
+                }
             }
         }
     }
