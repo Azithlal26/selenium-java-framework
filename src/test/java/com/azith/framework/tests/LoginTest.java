@@ -6,13 +6,16 @@ import com.azith.framework.listeners.RetryTransformer;
 import com.azith.framework.pages.LoginPage;
 import com.azith.framework.pages.ProductsPage;
 import com.azith.framework.testdata.TestData;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import com.azith.framework.listeners.TestListener;
 import org.testng.annotations.Listeners;
+import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
 
 @Listeners({
         TestListener.class,
@@ -30,6 +33,11 @@ public class LoginTest extends BaseTest {
             dataProvider = "loginData",
             dataProviderClass = TestData.class
     )
+
+    @Description("Verify login functionality using multiple user credentials")
+    @Owner("Azith")
+    @Severity(SeverityLevel.CRITICAL)
+
     public void verifyLogin(String username, String password, String expectedSuccess) {
 
         boolean isSuccess =

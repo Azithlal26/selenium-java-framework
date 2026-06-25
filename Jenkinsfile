@@ -76,6 +76,12 @@ pipeline {
 
                 junit 'target/surefire-reports/*.xml'
 
+                allure(
+                    includeProperties: false,
+                    jdk: '',
+                    results: [[path: 'target/allure-results']]
+                )
+
                 publishHTML([
                             allowMissing: true,
                             alwaysLinkToLastBuild: true,
