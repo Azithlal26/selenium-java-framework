@@ -25,7 +25,6 @@ import org.openqa.selenium.TakesScreenshot;
 @Listeners({
         TestListener.class,
         ExtentListener.class,
-        RetryTransformer.class
 })
 
 public class LoginTest extends BaseTest {
@@ -60,22 +59,10 @@ public class LoginTest extends BaseTest {
 
         if(isSuccess) {
 
-            Assert.fail("Retry Test");
-
             Assert.assertEquals(
                     productsPage.getPageTitle(),
                     "Products"
             );
-
-            byte[] screenshot =
-                    ((TakesScreenshot) DriverFactory.getDriver())
-                            .getScreenshotAs(OutputType.BYTES);
-
-            Allure.addAttachment(
-                    "Failure Screenshot",
-                    "image/png",
-                    new ByteArrayInputStream(screenshot),
-                    ".png");
 
             logger.info(
                     "Executing for user: "
@@ -83,6 +70,8 @@ public class LoginTest extends BaseTest {
                             + "On Thread : "
                             + Thread.currentThread().getId()
             );
+
+            Assert.fail("Retry Test");
         }
         else {
             Assert.assertEquals(

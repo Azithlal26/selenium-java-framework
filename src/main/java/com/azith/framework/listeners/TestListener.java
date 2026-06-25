@@ -47,6 +47,11 @@ public class TestListener implements ITestListener {
                         + result.getName());
 
         logger.info(
+                "Invocation Count = "
+                        + result.getMethod()
+                        .getCurrentInvocationCount());
+
+        logger.info(
                 "Retry Count : "
                         + result.getMethod()
                         .getCurrentInvocationCount());
@@ -80,5 +85,10 @@ public class TestListener implements ITestListener {
         logger.info(
                 "SKIPPED : "
                         + result.getName());
+
+        logger.info(
+                "Current Invocation Count : "
+                        + result.getMethod()
+                        .getCurrentInvocationCount());
     }
 }
