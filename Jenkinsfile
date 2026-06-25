@@ -1,5 +1,16 @@
 pipeline {
 
+    triggers {
+            cron('H/30 * * * *')
+    }
+
+    options {
+        buildDiscarder(logRotator(
+            numToKeepStr: '20',
+            artifactNumToKeepStr: '10'
+        ))
+    }
+
     agent any
 
     parameters {
@@ -33,6 +44,12 @@ pipeline {
         }
 
         stage('Build & Test') {
+
+            script {
+                currentBuild.displayName =
+                    "#${BUILD_NUMBER} ${params.BROWSER} ${params.ENV}"
+            }
+
             steps {
                 withEnv([
                     'JAVA_HOME=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot',
