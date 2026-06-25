@@ -12,14 +12,27 @@ public class ConfigReader {
 
         try {
 
-            FileInputStream fis = new FileInputStream(
-                    "src/main/resources/config/config.properties");
+            String env =
+                    System.getProperty("env", "qa");
+
+            String configFile =
+                    "src/main/resources/config/config-"
+                            + env
+                            + ".properties";
+
+            FileInputStream fis =
+                    new FileInputStream(configFile);
 
             properties.load(fis);
 
+            System.out.println(
+                    "Loaded Environment : "
+                            + env);
+
         } catch (IOException e) {
 
-            throw new RuntimeException("Unable to load config.properties", e);
+            throw new RuntimeException(
+                    "Unable to load config file", e);
         }
     }
 

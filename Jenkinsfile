@@ -23,7 +23,7 @@ pipeline {
 
             choice(
                 name: 'ENV',
-                choices: ['qa', 'uat'],
+                choices: ['qa', 'uat', 'stage'],
                 description: 'Select Environment'
             )
 
