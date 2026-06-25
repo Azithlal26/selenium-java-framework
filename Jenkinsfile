@@ -45,12 +45,13 @@ pipeline {
 
         stage('Build & Test') {
 
-            script {
-                currentBuild.displayName =
-                    "#${BUILD_NUMBER} ${params.BROWSER} ${params.ENV}"
-            }
-
             steps {
+
+                script {
+                                currentBuild.displayName =
+                                    "#${BUILD_NUMBER} ${params.BROWSER} ${params.ENV}"
+                            }
+
                 withEnv([
                     'JAVA_HOME=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot',
                     'PATH+JAVA=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot\\bin'
