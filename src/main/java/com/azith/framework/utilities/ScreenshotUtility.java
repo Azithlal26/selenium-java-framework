@@ -22,7 +22,8 @@ public class ScreenshotUtility {
 
     @Attachment(
             value = "Failure Screenshot",
-            type = "image/png"
+            type = "image/png",
+            fileExtension = ".png"
     )
     public static byte[] attachScreenshot(byte[] screenshot) {
 
