@@ -2,6 +2,27 @@ pipeline {
 
     agent any
 
+    parameters {
+
+            choice(
+                name: 'BROWSER',
+                choices: ['chrome', 'firefox'],
+                description: 'Select Browser'
+            )
+
+            choice(
+                name: 'ENV',
+                choices: ['qa', 'uat'],
+                description: 'Select Environment'
+            )
+
+            booleanParam(
+                name: 'HEADLESS',
+                defaultValue: false,
+                description: 'Run in Headless Mode'
+            )
+        }
+
     stages {
 
         stage('Checkout') {
