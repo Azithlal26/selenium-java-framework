@@ -8,7 +8,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
-
+import io.qameta.allure.Allure;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -20,14 +21,13 @@ public class ScreenshotUtility {
             LogManager.getLogger(
                     ScreenshotUtility.class);
 
-    @Attachment(
-            value = "Failure Screenshot",
-            type = "image/png",
-            fileExtension = ".png"
-    )
-    public static byte[] attachScreenshot(byte[] screenshot) {
+    public static void attachScreenshot(byte[] screenshot) {
 
-        return screenshot;
+        Allure.addAttachment(
+                "Failure Screenshot",
+                "image/png",
+                new ByteArrayInputStream(screenshot),
+                ".png");
     }
 
     public static String captureScreenshot(String testName) {

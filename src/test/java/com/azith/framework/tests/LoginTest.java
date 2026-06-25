@@ -1,6 +1,7 @@
 package com.azith.framework.tests;
 
 import com.azith.framework.base.BaseTest;
+import com.azith.framework.factory.DriverFactory;
 import com.azith.framework.listeners.ExtentListener;
 import com.azith.framework.listeners.RetryTransformer;
 import com.azith.framework.pages.LoginPage;
@@ -16,6 +17,10 @@ import com.azith.framework.listeners.TestListener;
 import org.testng.annotations.Listeners;
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
+import io.qameta.allure.Allure;
+import java.io.ByteArrayInputStream;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 @Listeners({
         TestListener.class,
@@ -59,9 +64,17 @@ public class LoginTest extends BaseTest {
                     "Products"
             );
 
-            Assert.fail(
-                    "Testing Allure Screenshot"
-            );
+            byte[] screenshot =
+                    ((TakesScreenshot) DriverFactory.getDriver())
+                            .getScreenshotAs(OutputType.BYTES);
+
+            Allure.addAttachment(
+                    "Failure Screenshot",
+                    "image/png",
+                    new ByteArrayInputStream(screenshot),
+                    ".png");
+
+            Assert.fail("Testing Allure Screenshot");
 
             logger.info(
                     "Executing for user: "

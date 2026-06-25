@@ -3,12 +3,15 @@ package com.azith.framework.listeners;
 import com.azith.framework.factory.DriverFactory;
 import com.azith.framework.pages.LoginPage;
 import com.azith.framework.utilities.ScreenshotUtility;
+import io.qameta.allure.Allure;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import java.io.ByteArrayInputStream;
 
 public class TestListener implements ITestListener {
 
@@ -51,8 +54,14 @@ public class TestListener implements ITestListener {
                             .getScreenshotAs(
                                     OutputType.BYTES);
 
-            ScreenshotUtility.attachScreenshot(
-                    screenshot);
+            logger.info("ATTACHING SCREENSHOT TO ALLURE");
+
+            Allure.addAttachment(
+                    "Failure Screenshot",
+                    "image/png",
+                    new ByteArrayInputStream(
+                            screenshot),
+                    ".png");
 
         }
 
