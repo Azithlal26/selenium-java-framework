@@ -40,8 +40,9 @@ pipeline {
                 ]) {
 
                     bat 'java -version'
+
                     bat """
-                    "'"C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd" clean test'
+                    call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd" clean test ^
                     -Dbrowser=${params.BROWSER} ^
                     -Denv=${params.ENV} ^
                     -Dheadless=${params.HEADLESS}
