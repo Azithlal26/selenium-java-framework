@@ -74,8 +74,6 @@ public class LoginTest extends BaseTest {
                     new ByteArrayInputStream(screenshot),
                     ".png");
 
-            Assert.fail("Testing Allure Screenshot");
-
             logger.info(
                     "Executing for user: "
                             + username
@@ -93,42 +91,4 @@ public class LoginTest extends BaseTest {
         }
 
     }
-
-////    @Test(retryAnalyzer = RetryAnalyzer.class)
-//    public void verifySuccessfulFailure(String username, String password, boolean expectedFailure) {
-//        LoginPage loginPage =
-//                new LoginPage();
-//
-//        ProductsPage productsPage =
-//                new ProductsPage();
-//
-//        loginPage.login(
-//                username, password);
-//
-//        if(expectedFailure) {
-//            Assert.assertEquals(
-//                    productsPage.getPageTitle(),
-//                    "Products1"
-//            );
-//        }
-//    }
-
-////    @Test(retryAnalyzer = RetryAnalyzer.class)
-//    public void verifySuccessfulFailureLast(String username, String password, boolean expectedSuccess) {
-//
-//        LoginPage loginPage =
-//                new LoginPage();
-//
-//        ProductsPage productsPage =
-//                new ProductsPage();
-//
-//        loginPage.login(
-//                username, password);
-//
-//        Assert.assertEquals(
-//                productsPage.getPageTitle(),
-//                "Products1"
-//        );
-//    }
-//    webhook test is added
 }
