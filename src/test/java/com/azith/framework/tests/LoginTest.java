@@ -58,6 +58,11 @@ public class LoginTest extends BaseTest {
                     productsPage.getPageTitle(),
                     "Products"
             );
+
+            Assert.fail(
+                    "Testing Allure Screenshot"
+            );
+
             logger.info(
                     "Executing for user: "
                             + username

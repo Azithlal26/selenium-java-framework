@@ -1,9 +1,12 @@
 package com.azith.framework.listeners;
 
+import com.azith.framework.factory.DriverFactory;
 import com.azith.framework.pages.LoginPage;
 import com.azith.framework.utilities.ScreenshotUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
@@ -39,6 +42,19 @@ public class TestListener implements ITestListener {
         logger.info(
                 "FAILED : "
                         + result.getName());
+
+        if (DriverFactory.getDriver() != null) {
+
+            byte[] screenshot =
+                    ((TakesScreenshot)
+                            DriverFactory.getDriver())
+                            .getScreenshotAs(
+                                    OutputType.BYTES);
+
+            ScreenshotUtility.attachScreenshot(
+                    screenshot);
+
+        }
 
         ScreenshotUtility.captureScreenshot(
                 result.getName());

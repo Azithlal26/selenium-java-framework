@@ -22,7 +22,7 @@ pipeline {
 
             choice(
                 name: 'BROWSER',
-                choices: ['chrome', 'firefox'],
+                choices: ['chrome', 'firefox', 'edge'],
                 description: 'Select Browser'
             )
 
@@ -84,7 +84,7 @@ pipeline {
                 allure(
                     includeProperties: false,
                     jdk: '',
-                    results: [[path: 'target/allure-results']]
+                    results: [[path: 'allure-results']]
                 )
 
                 publishHTML([
