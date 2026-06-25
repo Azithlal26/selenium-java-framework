@@ -36,7 +36,8 @@ public class LoginTest extends BaseTest {
 
     @Test(
             dataProvider = "loginData",
-            dataProviderClass = TestData.class
+            dataProviderClass = TestData.class,
+            retryAnalyzer = com.azith.framework.listeners.RetryAnalyzer.class
     )
 
     @Description("Verify login functionality using multiple user credentials")
@@ -58,6 +59,8 @@ public class LoginTest extends BaseTest {
                 username, password);
 
         if(isSuccess) {
+
+            Assert.fail("Retry Test");
 
             Assert.assertEquals(
                     productsPage.getPageTitle(),

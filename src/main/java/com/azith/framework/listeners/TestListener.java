@@ -46,6 +46,11 @@ public class TestListener implements ITestListener {
                 "FAILED : "
                         + result.getName());
 
+        logger.info(
+                "Retry Count : "
+                        + result.getMethod()
+                        .getCurrentInvocationCount());
+
         if (DriverFactory.getDriver() != null) {
 
             byte[] screenshot =
