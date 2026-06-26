@@ -1,6 +1,7 @@
 package com.azith.framework.listeners;
 
 import com.azith.framework.factory.DriverFactory;
+import io.qameta.allure.Allure;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.IRetryAnalyzer;
@@ -28,6 +29,12 @@ public class RetryAnalyzer implements IRetryAnalyzer {
                             + result.getName()
                             + " | Attempt : "
                             + retryCount);
+
+            // Add retry information to Allure
+            Allure.step(
+                    "Retrying " + result.getName()
+                            + " (Attempt " + retryCount + ")"
+            );
 
             return true;
         }

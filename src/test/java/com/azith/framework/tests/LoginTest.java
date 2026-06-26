@@ -70,8 +70,6 @@ public class LoginTest extends BaseTest {
                             + "On Thread : "
                             + Thread.currentThread().getId()
             );
-
-            Assert.fail("Retry Test");
         }
         else {
             Assert.assertEquals(
