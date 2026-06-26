@@ -118,6 +118,9 @@ public class DriverFactory {
         } catch (Exception e) {
             logger.error(
                     "Failed to create browser session", e);
+
+            throw new RuntimeException(
+                    "Unable to create WebDriver", e);
         }
     }
 
