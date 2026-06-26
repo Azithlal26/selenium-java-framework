@@ -15,7 +15,6 @@ pipeline {
 
     tools {
     jdk 'JDK21'
-    sonarQube 'SonarQube'
     }
 
 
