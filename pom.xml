@@ -84,9 +84,15 @@
         <version>3.5.4</version>
 
         <configuration>
+
+          <suiteXmlFiles>
+            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+
           <argLine>
             -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar
           </argLine>
+
         </configuration>
 
       </plugin>

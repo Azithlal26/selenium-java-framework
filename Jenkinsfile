@@ -1,8 +1,8 @@
 pipeline {
 
-    triggers {
-            cron('H/30 * * * *')
-    }
+//     triggers {
+//             cron('H/30 * * * *')
+//     }
 
     options {
         buildDiscarder(logRotator(
