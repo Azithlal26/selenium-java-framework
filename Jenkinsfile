@@ -15,6 +15,7 @@ pipeline {
 
     tools {
     jdk 'JDK21'
+    sonarQube 'SonarQube'
     }
 
 
@@ -70,6 +71,32 @@ pipeline {
                     -Denv=${params.ENV} ^
                     -Dheadless=${params.HEADLESS}
                     """
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+
+            steps {
+
+                withSonarQubeEnv('SonarQube') {
+
+                      bat """
+                        call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify sonar:sonar ^
+                        -Dsonar.projectKey=SJF ^
+                        -Dsonar.projectName=SJF
+                        """
+                    }
+                }
+            }
+
+        stage('Quality Gate') {
+
+            steps {
+
+                timeout(time: 5, unit: 'MINUTES') {
+
+                     waitForQualityGate abortPipeline: true
                 }
             }
         }
