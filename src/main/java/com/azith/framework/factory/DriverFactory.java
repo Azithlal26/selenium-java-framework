@@ -151,6 +151,9 @@ public class DriverFactory {
                                 "Launching Remote Chrome");
 
                         driver.set(
+
+                                logger.info("Remote URL = " + ConfigReader.getProperty("remoteUrl"));
+
                                 new RemoteWebDriver(
                                         new URL(
                                                 ConfigReader.getProperty("remoteUrl")),

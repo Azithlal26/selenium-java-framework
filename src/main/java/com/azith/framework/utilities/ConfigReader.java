@@ -1,10 +1,17 @@
 package com.azith.framework.utilities;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReader {
+
+    private static final Logger logger =
+            LogManager.getLogger(
+                    ConfigReader.class);
 
     private static Properties properties = new Properties();
 
@@ -20,14 +27,15 @@ public class ConfigReader {
                             + env
                             + ".properties";
 
+            logger.info("Loading Config File : " + configFile);
+
             FileInputStream fis =
                     new FileInputStream(configFile);
 
             properties.load(fis);
 
-            System.out.println(
-                    "Loaded Environment : "
-                            + env);
+            logger.info("Loaded Environment : " + env);
+            logger.info("Remote URL : " + properties.getProperty("remoteUrl"));
 
         } catch (IOException e) {
 
