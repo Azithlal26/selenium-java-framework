@@ -13,8 +13,7 @@ public class TestData {
                     TestData.class);
 
     @DataProvider(
-            name = "loginData",
-            parallel = true)
+            name = "loginData")
 
     public Object[][] loginData() throws Exception {
 
