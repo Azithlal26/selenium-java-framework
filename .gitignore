@@ -53,3 +53,13 @@ test-output/
 # Log files
 
 *.log
+
+# Allure
+allure-results/
+allure-report/
+
+# Docker
+docker-compose.override.yml
+
+# Maven Wrapper Logs
+.mvn/timing.properties
