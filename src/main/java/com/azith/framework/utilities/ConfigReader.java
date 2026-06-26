@@ -34,6 +34,7 @@ public class ConfigReader {
 
             properties.load(fis);
 
+            logger.info("Execution Mode : " + properties.getProperty("executionMode"));
             logger.info("Loaded Environment : " + env);
             logger.info("Remote URL : " + properties.getProperty("remoteUrl"));
 
