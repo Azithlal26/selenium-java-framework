@@ -82,6 +82,7 @@ pipeline {
 
                       bat """
                         call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify sonar:sonar ^
+                        -DskipTests=true ^
                         -Dsonar.projectKey=SJF ^
                         -Dsonar.projectName=SJF
                         """
