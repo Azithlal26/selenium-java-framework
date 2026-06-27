@@ -4,6 +4,7 @@ import com.azith.framework.factory.DriverFactory;
 import com.azith.framework.utilities.ConfigReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -42,7 +43,9 @@ public class BaseTest {
                     "WebDriver initialization failed.");
         }
 
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(
+                new Dimension(1920,1080)
+        );
         driver.get(ConfigReader.getProperty("url"));
     }
 

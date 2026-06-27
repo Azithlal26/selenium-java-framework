@@ -130,7 +130,7 @@ pipeline {
         always {
 
                 script {
-                    echo "Inside Post = ${currentBuild.currentResult}"
+                    echo "Before JUnit = ${currentBuild.currentResult}"
                 }
 
                 junit(
@@ -139,11 +139,19 @@ pipeline {
                     skipPublishingChecks: true
                 )
 
+                script {
+                    echo "After JUnit = ${currentBuild.currentResult}"
+                }
+
                 allure(
                     includeProperties: false,
                     jdk: '',
                     results: [[path: 'allure-results']]
                 )
+
+                script {
+                    echo "After Allure = ${currentBuild.currentResult}"
+                }
 
                 publishHTML([
                             allowMissing: true,
@@ -154,11 +162,19 @@ pipeline {
                             reportName: 'Extent Report'
                         ])
 
+                script {
+                    echo "After HTML = ${currentBuild.currentResult}"
+                }
+
                 archiveArtifacts(
                     artifacts: 'reports/**/*.*,screenshots/**/*.*,logs/**/*.*',
                     fingerprint: true,
                     allowEmptyArchive: true
                 )
+
+                script {
+                    echo "After Archive = ${currentBuild.currentResult}"
+                }
             }
 
         success {
