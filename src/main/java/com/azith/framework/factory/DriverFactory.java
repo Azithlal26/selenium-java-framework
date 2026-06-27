@@ -47,6 +47,15 @@ public class DriverFactory {
                     ChromeOptions chromeOptions =
                             new ChromeOptions();
 
+                    chromeOptions.addArguments("--no-sandbox");
+                    chromeOptions.addArguments("--disable-dev-shm-usage");
+                    chromeOptions.addArguments("--disable-gpu");
+                    chromeOptions.addArguments("--remote-allow-origins=*");
+
+                    if (Boolean.parseBoolean(ConfigReader.getProperty("headless"))) {
+                        chromeOptions.addArguments("--headless=new");
+                    }
+
                     if (executionMode.equalsIgnoreCase("local")) {
 
                         logger.info("Launching Local Chrome");
@@ -148,7 +157,10 @@ public class DriverFactory {
 
         if (driver.get() != null) {
 
+            logger.info("Closing browser on Thread {}", Thread.currentThread().getId());
             driver.get().quit();
+
+            logger.info("Browser closed");
             driver.remove();
         }
     }
