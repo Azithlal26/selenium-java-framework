@@ -87,6 +87,16 @@ pipeline {
             }
         }
 
+        stage('Code Coverage') {
+            steps {
+                jacoco(
+                    execPattern: 'target/jacoco.exec',
+                    classPattern: 'target/classes',
+                    sourcePattern: 'src/main/java'
+                )
+            }
+        }
+
         stage('Verify Reports') {
             steps {
                 bat 'dir target\\surefire-reports'
