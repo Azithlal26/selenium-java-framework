@@ -74,6 +74,13 @@ pipeline {
             }
         }
 
+
+        stage('Verify Reports') {
+            steps {
+                bat 'dir target\\surefire-reports'
+            }
+        }
+
         stage('SonarQube Analysis') {
 
             steps {
@@ -81,8 +88,9 @@ pipeline {
                 withSonarQubeEnv('SonarQube') {
 
                       bat """
-                        call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify sonar:sonar ^
-                        -DskipTests=true ^
+                        call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd ^
+                         org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar ^
+                        -DskipTests ^
                         -Dsonar.projectKey=SJF ^
                         -Dsonar.projectName=SJF
                         """

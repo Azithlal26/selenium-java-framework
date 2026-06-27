@@ -50,7 +50,7 @@ services:
     command: mvn test
 
   sonarqube:
-    image: sonarqube:lts-community
+    image: sonarqube:community
     container_name: sonarqube
     depends_on:
       - db
