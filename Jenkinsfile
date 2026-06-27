@@ -64,6 +64,11 @@ pipeline {
 
                     bat 'java -version'
 
+                    bat '''
+                    if exist allure-results rmdir /S /Q allure-results
+                    if exist allure-report rmdir /S /Q allure-report
+                    '''
+
                     bat """
                     call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
                     -Dbrowser=${params.BROWSER} ^
