@@ -74,6 +74,13 @@ pipeline {
             }
         }
 
+        stage('Debug After Tests') {
+            steps {
+                script {
+                    echo "After Tests = ${currentBuild.currentResult}"
+                }
+            }
+        }
 
         stage('Verify Reports') {
             steps {
@@ -98,6 +105,14 @@ pipeline {
                 }
             }
 
+            stage('Debug After Sonar') {
+                steps {
+                    script {
+                        echo "After Sonar = ${currentBuild.currentResult}"
+                    }
+                }
+            }
+
         stage('Quality Gate') {
 
             steps {
@@ -114,9 +129,14 @@ pipeline {
 
         always {
 
+                script {
+                    echo "Inside Post = ${currentBuild.currentResult}"
+                }
+
                 junit(
                     testResults: 'target/surefire-reports/*.xml',
-                    allowEmptyResults: true
+                    allowEmptyResults: false,
+                    skipPublishingChecks: true
                 )
 
                 allure(
@@ -134,11 +154,11 @@ pipeline {
                             reportName: 'Extent Report'
                         ])
 
-                archiveArtifacts artifacts: 'reports/**/*.*', fingerprint: true
-
-                archiveArtifacts artifacts: 'screenshots/**/*.*', fingerprint: true
-
-                archiveArtifacts artifacts: 'logs/**/*.*', fingerprint: true
+                archiveArtifacts(
+                    artifacts: 'reports/**/*.*,screenshots/**/*.*,logs/**/*.*',
+                    fingerprint: true,
+                    allowEmptyArchive: true
+                )
             }
 
         success {
@@ -169,6 +189,21 @@ pipeline {
                 """,
                 to: "azithlaltsthorali@gmail.com"
             )
+        }
+
+        unstable {
+             emailext(
+                  subject: "UNSTABLE : ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                  body: """
+                  Build is UNSTABLE
+
+                  Job: ${env.JOB_NAME}
+                  Build: ${env.BUILD_NUMBER}
+
+                  URL: ${env.BUILD_URL}
+                  """,
+                  to: "azithlaltsthorali@gmail.com"
+             )
         }
     }
 }
