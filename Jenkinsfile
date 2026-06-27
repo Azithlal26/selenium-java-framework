@@ -70,7 +70,7 @@ pipeline {
                     '''
 
                     bat """
-                    call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                    call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
                     -Dbrowser=${params.BROWSER} ^
                     -Denv=${params.ENV} ^
                     -Dheadless=${params.HEADLESS}
@@ -166,6 +166,15 @@ pipeline {
                             reportFiles: 'ExtentReport.html',
                             reportName: 'Extent Report'
                         ])
+
+                publishHTML([
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'target/site/jacoco',
+                    reportFiles: 'index.html',
+                    reportName: 'JaCoCo Coverage'
+                ])
 
                 script {
                     echo "After HTML = ${currentBuild.currentResult}"
