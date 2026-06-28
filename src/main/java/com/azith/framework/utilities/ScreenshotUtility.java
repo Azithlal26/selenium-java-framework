@@ -47,8 +47,15 @@ public class ScreenshotUtility {
                                 DateTimeFormatter.ofPattern(
                                         "yyyyMMdd_HHmmss"));
 
+        String browser =
+                System.getProperty("browser", "chrome");
+
+        new File("screenshots/" + browser).mkdirs();
+
         String filePath =
                 "screenshots/"
+                        + browser
+                        + "/"
                         + testName
                         + "_"
                         + timestamp
