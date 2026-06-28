@@ -21,6 +21,12 @@ pipeline {
     parameters {
 
             choice(
+                    name: 'EXECUTION_MODE',
+                    choices: ['Single', 'Parallel'],
+                    description: 'Execution Mode'
+                )
+
+            choice(
                 name: 'BROWSER',
                 choices: ['chrome', 'firefox', 'edge'],
                 description: 'Select Browser'
