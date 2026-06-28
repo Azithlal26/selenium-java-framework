@@ -58,30 +58,85 @@ pipeline {
 
             steps {
 
-                script {
-                                currentBuild.displayName =
-                                    "#${BUILD_NUMBER} ${params.BROWSER} ${params.ENV}"
+                    script {
+                        if(params.EXECUTION_MODE == "single") {
+                            currentBuild.displayName = "#${BUILD_NUMBER} ${params.BROWSER} ${params.ENV}"
+
+                            withEnv([
+                                'JAVA_HOME=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot',
+                                'PATH+JAVA=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot\\bin'
+                            ])
+
+                            {
+
+                                bat 'java -version'
+
+                                bat '''
+                                if exist allure-results rmdir /S /Q allure-results
+                                if exist allure-report rmdir /S /Q allure-report
+                                '''
+
+                                bat """
+                                call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
+                                -Dbrowser=${params.BROWSER} ^
+                                -Denv=${params.ENV} ^
+                                -Dheadless=${params.HEADLESS}
+                                """
                             }
+                        } else {
 
-                withEnv([
-                    'JAVA_HOME=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot',
-                    'PATH+JAVA=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot\\bin'
-                ]) {
+                              echo "Running Chrome + Firefox + Edge in Parallel"
 
-                    bat 'java -version'
+                              parallel(
 
-                    bat '''
-                    if exist allure-results rmdir /S /Q allure-results
-                    if exist allure-report rmdir /S /Q allure-report
-                    '''
+                                  Chrome: {
 
-                    bat """
-                    call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
-                    -Dbrowser=${params.BROWSER} ^
-                    -Denv=${params.ENV} ^
-                    -Dheadless=${params.HEADLESS}
-                    """
-                }
+                                      ws("${env.WORKSPACE}@chrome") {
+
+                                          checkout scm
+
+                                          bat """
+                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                                          -Dbrowser=chrome ^
+                                          -Denv=${params.ENV} ^
+                                          -Dheadless=${params.HEADLESS}
+                                          """
+                                      }
+                                  },
+
+                                  Firefox: {
+
+                                      ws("${env.WORKSPACE}@firefox") {
+
+                                          checkout scm
+
+                                          bat """
+                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                                          -Dbrowser=firefox ^
+                                          -Denv=${params.ENV} ^
+                                          -Dheadless=${params.HEADLESS}
+                                          """
+                                      }
+                                  },
+
+                                  Edge: {
+
+                                      ws("${env.WORKSPACE}@edge") {
+
+                                          checkout scm
+
+                                          bat """
+                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                                          -Dbrowser=edge ^
+                                          -Denv=${params.ENV} ^
+                                          -Dheadless=${params.HEADLESS}
+                                          """
+                                      }
+                                  }
+
+                              )
+                        }
+                    }
             }
         }
 
