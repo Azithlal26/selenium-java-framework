@@ -17,6 +17,13 @@
     <sonar.coverage.jacoco.xmlReportPaths>
       target/site/jacoco/jacoco.xml
     </sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.coverage.exclusions>
+      **/listeners/**,
+      **/utilities/ExtentManager.java,
+      **/utilities/ScreenshotUtility.java,
+      **/factory/**,
+      **/base/**
+    </sonar.coverage.exclusions>
   </properties>
 
   <dependencies>

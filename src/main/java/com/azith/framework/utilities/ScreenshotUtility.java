@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static java.io.File.separator;
+
 public class ScreenshotUtility {
 
     private static final Logger logger =
@@ -53,9 +55,10 @@ public class ScreenshotUtility {
         new File("screenshots/" + browser).mkdirs();
 
         String filePath =
-                "screenshots/"
+                "screenshots"
+                        + separator
                         + browser
-                        + "/"
+                        + separator
                         + testName
                         + "_"
                         + timestamp
