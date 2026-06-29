@@ -1,9 +1,7 @@
 package com.azith.framework.tests;
 
 import com.azith.framework.base.BaseTest;
-import com.azith.framework.factory.DriverFactory;
 import com.azith.framework.listeners.ExtentListener;
-import com.azith.framework.listeners.RetryTransformer;
 import com.azith.framework.pages.LoginPage;
 import com.azith.framework.pages.ProductsPage;
 import com.azith.framework.testdata.TestData;
@@ -17,10 +15,6 @@ import com.azith.framework.listeners.TestListener;
 import org.testng.annotations.Listeners;
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
-import io.qameta.allure.Allure;
-import java.io.ByteArrayInputStream;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 
 @Listeners({
         TestListener.class,

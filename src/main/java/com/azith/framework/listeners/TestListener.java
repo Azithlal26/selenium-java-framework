@@ -1,7 +1,7 @@
 package com.azith.framework.listeners;
 
+import com.azith.framework.ai.model.FailureContext;
 import com.azith.framework.factory.DriverFactory;
-import com.azith.framework.pages.LoginPage;
 import com.azith.framework.utilities.ScreenshotUtility;
 import io.qameta.allure.Allure;
 import org.apache.logging.log4j.LogManager;
@@ -50,6 +50,27 @@ public class TestListener implements ITestListener {
                 "Invocation Count = "
                         + result.getMethod()
                         .getCurrentInvocationCount());
+
+        FailureContext context = new FailureContext();
+
+        context.setTestName(result.getName());
+
+        context.setBrowser(
+                System.getProperty("browser"));
+
+        context.setEnvironment(
+                System.getProperty("env"));
+
+        context.setException(
+                result.getThrowable());
+
+        String aiSummary =
+                AIFailureAnalyzer.analyze(context);
+
+        Allure.addAttachment(
+                "AI Failure Analysis",
+                "text/plain",
+                aiSummary);
 
         if (DriverFactory.getDriver() != null) {
 

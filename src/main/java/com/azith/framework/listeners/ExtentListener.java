@@ -2,6 +2,7 @@ package com.azith.framework.listeners;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.azith.framework.ai.model.FailureContext;
 import com.azith.framework.utilities.ExtentManager;
 import com.azith.framework.utilities.ScreenshotUtility;
 import org.testng.ITestListener;
@@ -45,6 +46,27 @@ public class ExtentListener
 
         test.get().fail(
                 result.getThrowable());
+
+        // AI Summary
+        FailureContext context = new FailureContext();
+
+        context.setTestName(result.getName());
+
+        context.setBrowser(
+                System.getProperty("browser"));
+
+        context.setEnvironment(
+                System.getProperty("env"));
+
+        context.setScreenshotPath(screenshotPath);
+
+        context.setException(
+                result.getThrowable());
+
+        String aiSummary =
+                AIFailureAnalyzer.analyze(context);
+
+        test.get().info("<pre>" + aiSummary + "</pre>");
 
         test.get()
                 .addScreenCaptureFromPath(

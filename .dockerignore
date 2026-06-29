@@ -1,0 +1,9 @@
+target
+reports
+logs
+screenshots
+allure-results
+allure-report
+.git
+.idea
+*.iml

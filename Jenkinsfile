@@ -59,8 +59,8 @@ pipeline {
             steps {
 
                     script {
-                        if(params.EXECUTION_MODE == "single") {
-                            currentBuild.displayName = "#${BUILD_NUMBER} ${params.BROWSER} ${params.ENV}"
+                        if(params.EXECUTION_MODE == "Single") {
+                            currentBuild.displayName = "#${BUILD_NUMBER} Parallel | ${params.ENV}"
 
                             withEnv([
                                 'JAVA_HOME=C:\\Users\\Azithlal\\AppData\\Local\\Programs\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot',
@@ -86,6 +86,7 @@ pipeline {
                         } else {
 
                               echo "Running Chrome + Firefox + Edge in Parallel"
+                              currentBuild.displayName = "#${BUILD_NUMBER} ${params.EXECUTION_MODE} ${params.ENV}"
 
                               parallel(
 
