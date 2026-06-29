@@ -8,6 +8,7 @@ public class FailureContext {
     private String exceptionType;
     private String exceptionMessage;
     private String stackTrace;
+    private String screenshotPath;
 
     public FailureContext() {
     }
@@ -18,7 +19,8 @@ public class FailureContext {
             String environment,
             String exceptionType,
             String exceptionMessage,
-            String stackTrace) {
+            String stackTrace,
+            String screenshotPath) {
 
         this.testName = testName;
         this.browser = browser;
@@ -75,4 +77,13 @@ public class FailureContext {
     public void setStackTrace(String stackTrace) {
         this.stackTrace = stackTrace;
     }
+
+    public String getScreenshotPath() {
+        return screenshotPath;
+    }
+
+    public void setScreenshotPath(String screenshotPath) {
+        this.screenshotPath = screenshotPath;
+    }
+
 }

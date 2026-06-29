@@ -1,5 +1,7 @@
 package com.azith.framework.listeners;
 
+import com.azith.framework.ai.AIClient;
+import com.azith.framework.ai.OllamaClient;
 import com.azith.framework.ai.model.FailureContext;
 import com.azith.framework.factory.DriverFactory;
 import com.azith.framework.utilities.ScreenshotUtility;
@@ -61,11 +63,36 @@ public class TestListener implements ITestListener {
         context.setEnvironment(
                 System.getProperty("env"));
 
-        context.setException(
-                result.getThrowable());
+        Throwable t =
+                result.getThrowable();
+
+        context.setTestName(result.getName());
+
+        context.setBrowser(
+                System.getProperty("browser"));
+
+        context.setEnvironment(
+                System.getProperty("env"));
+
+        context.setExceptionType(
+                t.getClass().getSimpleName());
+
+        context.setExceptionMessage(
+                t.getMessage());
+
+        context.setStackTrace(
+                t.toString());
+
+        AIClient aiClient = new OllamaClient();
 
         String aiSummary =
-                AIFailureAnalyzer.analyze(context);
+                aiClient.analyze(context);
+
+        logger.info("========== AI FAILURE ANALYSIS ==========");
+
+        logger.info(aiSummary);
+
+        logger.info("=========================================");
 
         Allure.addAttachment(
                 "AI Failure Analysis",

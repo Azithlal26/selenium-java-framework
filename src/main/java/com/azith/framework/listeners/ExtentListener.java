@@ -60,13 +60,13 @@ public class ExtentListener
 
         context.setScreenshotPath(screenshotPath);
 
-        context.setException(
-                result.getThrowable());
-
-        String aiSummary =
-                AIFailureAnalyzer.analyze(context);
-
-        test.get().info("<pre>" + aiSummary + "</pre>");
+//        context.setException(
+//                result.getThrowable());
+//
+//        String aiSummary =
+//                AIFailureAnalysisTest.analyze(context);
+//
+//        test.get().info("<pre>" + aiSummary + "</pre>");
 
         test.get()
                 .addScreenCaptureFromPath(
