@@ -81,7 +81,7 @@ public class TestListener implements ITestListener {
                 t.getMessage());
 
         context.setStackTrace(
-                t.toString());
+                t.getMessage());
 
         AIClient aiClient = new OllamaClient();
 

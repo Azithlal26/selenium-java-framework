@@ -43,6 +43,13 @@ pipeline {
                 defaultValue: false,
                 description: 'Run in Headless Mode'
             )
+
+            booleanParam(
+                name: 'RUN_AI_DEMO',
+                defaultValue: false,
+                description: 'Run AI Failure Demo Test'
+            )
+
         }
 
     stages {
@@ -76,12 +83,30 @@ pipeline {
                                 if exist allure-report rmdir /S /Q allure-report
                                 '''
 
-                                bat """
-                                call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
-                                -Dbrowser=${params.BROWSER} ^
-                                -Denv=${params.ENV} ^
-                                -Dheadless=${params.HEADLESS}
-                                """
+                                if (params.RUN_AI_DEMO) {
+
+                                    echo "Running AI Failure Demo Test"
+
+                                    bat """
+                                    call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                                    -Dtest=AIFailureAnalysisTest ^
+                                    -Dbrowser=${params.BROWSER} ^
+                                    -Denv=${params.ENV} ^
+                                    -Dheadless=${params.HEADLESS}
+                                    """
+
+                                } else {
+
+                                    echo "Running Normal Test Suite"
+
+                                    bat """
+                                    call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
+                                    -Dbrowser=${params.BROWSER} ^
+                                    -Denv=${params.ENV} ^
+                                    -Dheadless=${params.HEADLESS}
+                                    """
+
+                                }
                             }
                         } else {
 

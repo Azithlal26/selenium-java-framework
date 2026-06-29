@@ -58,8 +58,6 @@ public class ExtentListener
         context.setEnvironment(
                 System.getProperty("env"));
 
-        context.setScreenshotPath(screenshotPath);
-
         test.get()
                 .addScreenCaptureFromPath(
                         screenshotPath);
