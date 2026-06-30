@@ -5,11 +5,9 @@
        thread-count="3">
 
     <listeners>
-
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
-
         <listener class-name= "com.azith.framework.listeners.TestListener"/>
-
+        <listener class-name="com.azith.framework.listeners.ExtentListener"/>
     </listeners>
 
     <test name="Chrome">

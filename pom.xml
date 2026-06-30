@@ -124,12 +124,26 @@
             <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
           </suiteXmlFiles>
 
+          <systemPropertyVariables>
+            <allure.results.directory>allure-results</allure.results.directory>
+          </systemPropertyVariables>
+
           <argLine>
             @{argLine}
             -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar
           </argLine>
 
         </configuration>
+
+        <dependencies>
+
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-testng</artifactId>
+            <version>3.5.4</version>
+          </dependency>
+
+        </dependencies>
 
       </plugin>
 

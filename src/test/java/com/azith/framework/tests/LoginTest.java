@@ -16,11 +16,6 @@ import org.testng.annotations.Listeners;
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
 
-@Listeners({
-        TestListener.class,
-        ExtentListener.class,
-})
-
 public class LoginTest extends BaseTest {
 
     private static final Logger logger =
