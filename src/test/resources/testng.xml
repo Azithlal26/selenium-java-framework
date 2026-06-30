@@ -6,8 +6,9 @@
 
     <listeners>
 
-        <listener class-name=
-                          "com.azith.framework.listeners.TestListener"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+
+        <listener class-name= "com.azith.framework.listeners.TestListener"/>
 
     </listeners>
 

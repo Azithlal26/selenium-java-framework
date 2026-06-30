@@ -88,7 +88,7 @@ pipeline {
                                     echo "Running AI Failure Demo Test"
 
                                     bat """
-                                    call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                                    call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
                                     -Dtest=AIFailureAnalysisTest ^
                                     -Dbrowser=${params.BROWSER} ^
                                     -Denv=${params.ENV} ^
@@ -122,7 +122,7 @@ pipeline {
                                           checkout scm
 
                                           bat """
-                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
                                           -Dbrowser=chrome ^
                                           -Denv=${params.ENV} ^
                                           -Dheadless=${params.HEADLESS}
@@ -137,7 +137,7 @@ pipeline {
                                           checkout scm
 
                                           bat """
-                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
                                           -Dbrowser=firefox ^
                                           -Denv=${params.ENV} ^
                                           -Dheadless=${params.HEADLESS}
@@ -152,7 +152,7 @@ pipeline {
                                           checkout scm
 
                                           bat """
-                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean test ^
+                                          call C:\\Tools\\apache-maven-3.9.16\\bin\\mvn.cmd clean verify ^
                                           -Dbrowser=edge ^
                                           -Denv=${params.ENV} ^
                                           -Dheadless=${params.HEADLESS}
