@@ -7,6 +7,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class OllamaClient implements AIClient {
 
@@ -15,8 +17,20 @@ public class OllamaClient implements AIClient {
 
     private static final String MODEL = "mistral";
 
-    private final HttpClient httpClient =
-            HttpClient.newHttpClient();
+    private static final ObjectMapper OBJECT_MAPPER =
+            new ObjectMapper();
+
+    private final HttpClient httpClient;
+
+    // Production constructor
+    public OllamaClient() {
+        this(HttpClient.newHttpClient());
+    }
+
+    // Test constructor
+    OllamaClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
 
     @Override
     public String analyze(FailureContext context) {
@@ -76,26 +90,25 @@ public class OllamaClient implements AIClient {
 
     private String extractResponse(String json) {
 
-        String key = "\"response\":\"";
+        try {
 
-        int start = json.indexOf(key);
+            JsonNode root =
+                    OBJECT_MAPPER.readTree(json);
 
-        if (start == -1) {
+            JsonNode responseNode =
+                    root.get("response");
+
+            if (responseNode == null ||
+                    responseNode.isNull()) {
+
+                return "Unable to parse AI response.";
+            }
+
+            return responseNode.asText();
+
+        } catch (Exception e) {
 
             return "Unable to parse AI response.";
         }
-
-        start += key.length();
-
-        int end = json.indexOf("\",\"done\"", start);
-
-        if (end == -1) {
-
-            return "Unable to parse AI response.";
-        }
-
-        return json.substring(start, end)
-                .replace("\\n", System.lineSeparator())
-                .replace("\\\"", "\"");
     }
 }
